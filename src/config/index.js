@@ -4,8 +4,6 @@ const path=require('path')
 
 dotenv.config()
 
-
-
 module.exports={
   APP_PORT,
   MYSQL_HOST,

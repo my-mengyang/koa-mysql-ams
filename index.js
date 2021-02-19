@@ -1,4 +1,5 @@
 const app=require('./src/app')
+const connection=require('./src/service')
 const config=require('./src/config')
 
 app.listen(config.APP_PROT,()=>{
