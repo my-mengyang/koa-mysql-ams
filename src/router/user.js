@@ -2,12 +2,10 @@ const Router=require('koa-router')
 
 const userRouter=new Router()
 
-
 const {
-  login
-}=require('../control/user')
+  register
+} =require('../control/user')
 
-userRouter.post('/login',login)
-
+userRouter.post('/register',register)
 
 module.exports=userRouter
