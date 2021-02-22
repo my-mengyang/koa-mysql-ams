@@ -1,15 +1,18 @@
-const Router=require('koa-router')
+const Router = require('koa-router')
 
-const userRouter=new Router()
+const userRouter = new Router()
 
 const {
   register,
-  login
-} =require('../control/user')
+  login,
+  check
+} = require('../control/user')
 
 
-userRouter.post('/register',register)
+userRouter.post('/register', register)
 
-userRouter.post('/login' ,login)
+userRouter.post('/login', login)
 
-module.exports=userRouter
+userRouter.get("/checkName", check)
+
+module.exports = userRouter

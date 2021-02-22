@@ -41,6 +41,16 @@ class UserControl {
       data:user
     }
   }
+
+  async check(ctx,next){
+    const {name} =ctx.request.query
+    const result =await userService.getUserByName(name)
+    console.log(result)
+    ctx.body={
+      success:true,
+      data:result
+    }
+  }
 }
 
 module.exports = new UserControl();
