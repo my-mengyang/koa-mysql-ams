@@ -1,13 +1,16 @@
 const connections=require('./index')
+const dayjs =require('dayjs')
 
 
 
 class UserService{
   //注册
-  async register(user){
+  async register(user,address){
     const {name,password}=user
-    const statement=`INSERT INTO user (name,password) VALUES(?,?)`
-    const res=await connections.execute(statement,[name,password])
+    let time=dayjs().unix()
+    console.log(typeof time)
+    const statement=`INSERT INTO user (name,password,username,registerTime,updateTime,registerAddress,lastLoginAddress) VALUES(?,?,?,?,?,?,?)`
+    const res=await connections.execute(statement,[name,password,name,time,time,address,address])
     return res[0]
   }
   //用户是否存在

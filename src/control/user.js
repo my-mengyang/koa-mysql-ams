@@ -1,10 +1,14 @@
 const userService=require('../service/user')
+const axios=require('axios')
 
+const {decrypt} =require('../utils')
 class UserControl {
   async register(ctx, next) {
     const user=ctx.request.body
-    const res=await userService.register(user)
-    console.log(res)
+    const ip=await getIpInfo(ctx)
+    const address=`${ip.result.ip} ${ip.result.ad_info.nation}${ip.result.ad_info.province}${ip.result.ad_info.city}${ip.result.ad_info.district}`
+    console.log(address)
+    const res=await userService.register(user,address)
     ctx.body = {
       success:true,
       data:res.insertId,
@@ -16,9 +20,7 @@ class UserControl {
     const {name,password}=ctx.request.body
     //2. 判断用户是否存在
     const result =await userService.getUserByName(name)
-    console.log(result)
     const user=result[0]
-    console.log(user)
     if (!user) {
       ctx.body={
         success:false,
@@ -28,7 +30,7 @@ class UserControl {
       return
     }
     //3. 判断密码和数据库中的是否一致
-    if (password !== user.password) {
+    if (decrypt(password) !== decrypt(user.password)) {
       ctx.body={
         success:false,
         message:'密码错误',
@@ -51,6 +53,20 @@ class UserControl {
       data:result
     }
   }
+}
+
+//腾讯得位置服务api获取id地址
+const getIpInfo =async function(ctx){
+  console.log(ctx.ip)
+  const ip=ctx.ip.split(":").pop()
+  const res=await axios.get('https://apis.map.qq.com/ws/location/v1/ip',{
+    params:{
+      key:"QDWBZ-SH5KD-KA64W-POSPZ-RJLZ5-GEBCH",
+      id:ip
+    }
+  })
+  console.log(res.data)
+  return res.data
 }
 
 module.exports = new UserControl();

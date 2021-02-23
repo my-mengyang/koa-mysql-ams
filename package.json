@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/my-mengyang/koa-mysql-ams#readme",
   "dependencies": {
+    "axios": "^0.21.1",
+    "crypto-js": "^4.0.0",
+    "dayjs": "^1.10.4",
     "dotenv": "^8.2.0",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
