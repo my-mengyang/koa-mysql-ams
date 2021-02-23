@@ -1,16 +1,16 @@
 const Koa=require('koa')
+const useRoutes=require('../router')
 
 const app=new Koa()
 const bodyParser=require('koa-bodyparser')
 const multer=require('koa-multer')
 const upload=multer({})
 
-const userRouter=require('../router/user')
+app.useRoutes=useRoutes
 
 app.use(bodyParser())
 app.use(upload.any())
-app.use(userRouter.routes())
-app.use(userRouter.allowedMethods())
+app.useRoutes()
 
 
 

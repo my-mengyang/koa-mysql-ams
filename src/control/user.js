@@ -7,7 +7,6 @@ class UserControl {
     const user=ctx.request.body
     const ip=await getIpInfo(ctx)
     const address=`${ip.result.ip} ${ip.result.ad_info.nation}${ip.result.ad_info.province}${ip.result.ad_info.city}${ip.result.ad_info.district}`
-    console.log(address)
     const res=await userService.register(user,address)
     ctx.body = {
       success:true,
@@ -47,7 +46,6 @@ class UserControl {
   async check(ctx,next){
     const {name} =ctx.request.query
     const result =await userService.getUserByName(name)
-    console.log(result)
     ctx.body={
       success:true,
       data:result
@@ -57,7 +55,6 @@ class UserControl {
 
 //腾讯得位置服务api获取id地址
 const getIpInfo =async function(ctx){
-  console.log(ctx.ip)
   const ip=ctx.ip.split(":").pop()
   const res=await axios.get('https://apis.map.qq.com/ws/location/v1/ip',{
     params:{
@@ -65,7 +62,6 @@ const getIpInfo =async function(ctx){
       id:ip
     }
   })
-  console.log(res.data)
   return res.data
 }
 
