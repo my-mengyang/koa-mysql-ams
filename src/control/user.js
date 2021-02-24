@@ -37,6 +37,9 @@ class UserControl {
       }
       return
     }
+    const ip=await getIpInfo(ctx)
+    const address=`${ip.result.ip} ${ip.result.ad_info.nation}${ip.result.ad_info.province}${ip.result.ad_info.city}${ip.result.ad_info.district}`
+    
     ctx.body={
       success:true,
       data:user

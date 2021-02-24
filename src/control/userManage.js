@@ -1,8 +1,18 @@
 const UserManageService=require('../service/userManage')
+const CommonService=require('../service/common')
 
 class UserManageContorl{
-  async list(list,ctx){
-
+  async list(ctx,next){
+    const user=ctx.request.body
+    const res=await UserManageService.list(user)
+    const res1=await CommonService.count('user')
+    console.log(res1)
+    ctx.body={
+      success:true,
+      data:res,
+      code:200,
+      count:res1
+    }
   }
 }
 
