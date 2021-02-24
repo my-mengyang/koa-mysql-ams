@@ -6,7 +6,6 @@ class UserManageContorl{
     const user=ctx.request.body
     const res=await UserManageService.list(user)
     const res1=await CommonService.count('user')
-    console.log(res1)
     ctx.body={
       success:true,
       data:res,

@@ -1,5 +1,6 @@
 const userService=require('../service/user')
 const axios=require('axios')
+const dayjs=require('dayjs')
 
 const {decrypt} =require('../utils')
 class UserControl {
@@ -37,9 +38,11 @@ class UserControl {
       }
       return
     }
+    const id=user.id
+    let time=dayjs().unix()
     const ip=await getIpInfo(ctx)
     const address=`${ip.result.ip} ${ip.result.ad_info.nation}${ip.result.ad_info.province}${ip.result.ad_info.city}${ip.result.ad_info.district}`
-    
+    const res=await userService.upDtateUserInfo(id,time,address)
     ctx.body={
       success:true,
       data:user

@@ -5,7 +5,6 @@ class CommonService{
   //总条数
   async count(tableName){
     const statement=`SELECT COUNT(*) FROM ${tableName}`
-    console.log(statement)
     const res=await connections.execute(statement)
     return res[0][0]['COUNT(*)']
   }

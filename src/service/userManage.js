@@ -13,7 +13,6 @@ class UserManageService{
     if (start_time) {
       statement+=`WHERE registerTime BETWEEN ${start_time} AND ${end_time}`
     }
-    console.log(statement)
     const res=await connections.execute(statement)
     return res[0]
   }

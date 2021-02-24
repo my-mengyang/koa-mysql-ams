@@ -18,8 +18,12 @@ class UserService{
     const res=await connections.execute(statement,[name])
     return res [0]
   }
-  async upDtateUserInfo(time,address){
-    const statement=`UPDATE user SET lastLoginAddress=${address},laseLoginTime=${time} WHERE `
+  //用户登录更新最后登录时间和登陆地
+  async upDtateUserInfo(user_id,time,address){
+    const statement=`UPDATE user SET lastLoginAddress=?,laseLoginTime=? WHERE id=?`
+    console.log(statement)
+    const res=await connections.execute(statement,[address,time,user_id])
+    return res
   }
 }
 
