@@ -1,4 +1,5 @@
 const connections=require('./index')
+const dayjs=require('dayjs')
 
 class TagService{
   async checkTagName(name){
@@ -8,17 +9,14 @@ class TagService{
     return res[0]
   }
   async addTag(name){
-    const statement=`INSERT INTO tags (name) VALUES(?)`
-    const res=await connections.execute(statement,[name])
+    let time=dayjs().unix()
+    const statement=`INSERT INTO tags (name,create_time) VALUES(?,?)`
+    const res=await connections.execute(statement,[name,time])
     return res[0]
 
   }
   async list(query){
   const {nopage,start,limit,name}=query
-  console.log(nopage);
-  console.log(start);
-  console.log(limit);
-  console.log(name);
     let statement=`SELECT * FROM tags`
     if(nopage === '0'){
       statement+=` LIMIT ${start*limit},${limit}`

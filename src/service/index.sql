@@ -41,9 +41,18 @@ CREATE TABLE IF NOT EXISTS `tags`(
   `tag_group` INT DEFAULT 0 COMMENT '标签有多少文章'
 );
 
+# 添加一列
+ALTER TABLE tags ADD create_time DEFAULT 0
+
 # 分类目录表
 CREATE TABLE IF NOT EXISTS `directory`(
   `id` INT PRIMARY KEY AUTO_INCREMENT COMMENT '目录id',
   `name` VARCHAR(128) NOT NULL COMMENT '目录名',
   `tag_group` INT DEFAULT 0 COMMENT '目录有多少文章'
 );
+# 添加一列
+ALTER TABLE directory ADD create_time DEFAULT 0
+
+ALTER TABLE directory ADD parent_id INT DEFAULT NULL
+
+ALTER TABLE directory CHANGE tag_group directory_group 

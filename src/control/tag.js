@@ -21,7 +21,6 @@ class TagControl{
     ctx.body={
       success:true,
       data:res,
-      code:200
     }
   }
   async list(ctx,next){
