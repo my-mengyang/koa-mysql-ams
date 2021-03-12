@@ -19,6 +19,11 @@ CREATE TABLE IF NOT EXISTS `user`(
 `lastLoginAddress` VARCHAR(256) DEFAULT NULL COMMENT '最后登录地'
 );
 
+# 用户表添加delete
+ALTER TABLE user ADD delete DEFAULT 0 COMMENT '删除用户0未删除1已删除'
+
+
+
 # 文章表
 CREATE TABLE IF NOT EXISTS `article` (
   `id` INT PRIMARY KEY AUTO_INCREMENT COMMENT '文章id',
