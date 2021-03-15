@@ -10,6 +10,15 @@ class UserManageContorl{
       count:res.count
     }
   }
+  async deleted(ctx,next){
+    const query=ctx.request.body
+    const res=await UserManageService.deleted(query.id)
+    ctx.body={
+      success:true,
+      data:res
+    }
+
+  }
 }
 
 

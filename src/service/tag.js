@@ -5,7 +5,6 @@ class TagService{
   async checkTagName(name){
     const statement=`SELECT * FROM tags WHERE name =?`
     const res=await connections.execute(statement,[name])
-    console.log(res);
     return res[0]
   }
   async addTag(name){
