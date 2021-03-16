@@ -61,3 +61,34 @@ ALTER TABLE directory ADD create_time DEFAULT 0
 ALTER TABLE directory ADD parent_id INT DEFAULT NULL
 
 ALTER TABLE directory CHANGE tag_group directory_group 
+
+# 创建关系表
+# 文章标签关系表
+
+CREATE TABLE IF NOT EXISTS `article_select_tag`(
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `article_id` INT NOT NULL,
+  `tag_id` INT NOT NULL,
+  FOREIGN KEY (article_id) REFERENCES article(id) ON UPDATE CASCADE,
+  FOREIGN KEY (tag_id) REFERENCES tags(id) ON UPDATE CASCADE
+);
+
+
+CREATE TABLE IF NOT EXISTS `article_select_directory`(
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `article_id` INT NOT NULL,
+  `directory_id` INT NOT NULL,
+  FOREIGN KEY (article_id) REFERENCES article(id) ON UPDATE CASCADE,
+  FOREIGN KEY (directory_id) REFERENCES directory(id) ON UPDATE CASCADE
+);
+
+# 登录表
+CREATE TABLE IF NOT EXISTS `login` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `account` VARCHAR(128) NOT NULL COMMENT '账号',
+  `password` VARCHAR(128) NOT NULL COMMENT '密码'
+);
+
+ALTER TABLE user ADD user_id INT NOT NULL
+
+ALTER TABLE user ADD FOREIGN KEY (user_id) REFERENCES login(id);

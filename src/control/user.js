@@ -6,13 +6,12 @@ const {decrypt} =require('../utils')
 class UserControl {
   async register(ctx, next) {
     const user=ctx.request.body
+    console.log(user)
     const ip=await getIpInfo(ctx)
     const address=`${ip.result.ip} ${ip.result.ad_info.nation}${ip.result.ad_info.province}${ip.result.ad_info.city}${ip.result.ad_info.district}`
     const res=await userService.register(user,address)
     ctx.body = {
       success:true,
-      data:res.insertId,
-      code:200
     };
   }
   async login(ctx,next){
@@ -45,7 +44,7 @@ class UserControl {
     const res=await userService.upDtateUserInfo(id,time,address)
     ctx.body={
       success:true,
-      data:user
+      data:res
     }
   }
 
@@ -55,6 +54,15 @@ class UserControl {
     ctx.body={
       success:true,
       data:result
+    }
+  }
+  async getUserInfo(ctx,next){
+    const query=ctx.request.query
+    console.log(query.user_id)
+    const res=await userService.getUserInfoById(query.user_id)
+    ctx.body={
+      success:true,
+      data:res
     }
   }
 }
