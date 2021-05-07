@@ -1,13 +1,18 @@
 const Koa=require('koa')
-const bodyParser=require('koa-bodyparser')
 const useRoutes=require('../router')
 
 const app=new Koa()
+const bodyParser=require('koa-bodyparser')
+const multer=require('koa-multer')
+const upload=multer({})
 
-
+app.useRoutes=useRoutes
 
 app.use(bodyParser())
-useRoutes(app)
+app.use(upload.any())
+app.useRoutes()
+
+
 
 
 module.exports=app
